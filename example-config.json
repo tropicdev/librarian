@@ -1,6 +1,6 @@
 {
     "pterodactyl": {
-        "enabled":true,
+        "enabled":false,
         "host":"",
         "api_token":"",
         "servers": [
@@ -10,7 +10,7 @@
         ]
     },
     "database":{
-        "enabled": true,
+        "enabled": false,
         "databases":[
             {"host":"", "user":"", "password":"", "db_name":"", "schedule":""},
             {"host":"", "user":"", "password":"", "db_name":"", "schedule":""}
