@@ -20,8 +20,8 @@ func DumpDatabase(config config.DatabaseConfig) {
 	db_config.Net = "tcp"
 	db_config.Addr = config.Host
 
-	dumpDir := config.Output_Directory                                     // you should create this directory
-	dumpFilenameFormat := fmt.Sprintf("%s-20060102T150405", config.DBName) // accepts time layout string and add .sql at the end of file
+	dumpDir := config.Output_Directory                                    // you should create this directory
+	dumpFilenameFormat := fmt.Sprintf("%s_02Jan2006_1504", config.DBName) // accepts time layout string and add .sql at the end of file
 
 	err := os.MkdirAll(config.Output_Directory, 0700)
 	if err != nil {
