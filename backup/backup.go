@@ -145,19 +145,7 @@ func getBackupURL(config config.BackupConfig, backups Backups) []string {
 func downloadBackups(backup_urls []string, config config.BackupConfig) {
 
 	for _, backup := range backup_urls {
-		client := &http.Client{}
-
-		req, err := http.NewRequest("GET", backup, nil)
-
-		if err != nil {
-			logger.ErrorLog.Println(err)
-		}
-
-		req.Header.Add("Accept", "application/json")
-		req.Header.Add("Content-Type", "application/json")
-		req.Header.Add("Authorization", "Bearer "+config.API_Token)
-
-		resp, err := client.Do(req)
+		resp, err := http.Get(backup)
 
 		if err != nil {
 			logger.ErrorLog.Println(err)
