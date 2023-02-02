@@ -1,0 +1,19 @@
+{
+    "pterodactyl": {
+        "enabled":true,
+        "host":"",
+        "api_token":"",
+        "servers": [
+            {"id":"","name":"", "output_directory":"", "schedule":""},
+            {"id":"","name":"", "output_directory":"", "schedule":""},
+            {"id":"","name":"", "output_directory":"", "schedule":""}
+        ]
+    },
+    "database":{
+        "enabled": true,
+        "databases":[
+            {"host":"", "user":"", "password":"", "db_name":"", "schedule":""},
+            {"host":"", "user":"", "password":"", "db_name":"", "schedule":""}
+        ]
+    }
+}
