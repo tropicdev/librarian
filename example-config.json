@@ -4,16 +4,16 @@
         "host":"",
         "api_token":"",
         "servers": [
-            {"id":"","name":"", "output_directory":"", "schedule":""},
-            {"id":"","name":"", "output_directory":"", "schedule":""},
-            {"id":"","name":"", "output_directory":"", "schedule":""}
+            {"id":"","name":"", "output_directory":"", "schedule":"","delete_after":1},
+            {"id":"","name":"", "output_directory":"", "schedule":"","delete_after":1},
+            {"id":"","name":"", "output_directory":"", "schedule":"","delete_after":1}
         ]
     },
     "database":{
         "enabled": false,
         "databases":[
-            {"host":"", "user":"", "password":"", "db_name":"", "schedule":""},
-            {"host":"", "user":"", "password":"", "db_name":"", "schedule":""}
+            {"host":"", "user":"", "password":"", "db_name":"", "schedule":"","delete_after":1},
+            {"host":"", "user":"", "password":"", "db_name":"", "schedule":"","delete_after":1}
         ]
     }
 }

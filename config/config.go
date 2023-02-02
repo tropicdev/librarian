@@ -23,11 +23,12 @@ type Config struct {
 	Database struct {
 		Enabled   bool `json:"enabled"`
 		Databases []struct {
-			Host     string `json:"host"`
-			User     string `json:"user"`
-			Password string `json:"password"`
-			DBName   string `json:"db_name"`
-			Schedule string `json:"schedule"`
+			Host         string `json:"host"`
+			User         string `json:"user"`
+			Password     string `json:"password"`
+			DBName       string `json:"db_name"`
+			Schedule     string `json:"schedule"`
+			Delete_After int    `json:"delete_after"`
 		} `json:"databases"`
 	} `json:"database"`
 }
