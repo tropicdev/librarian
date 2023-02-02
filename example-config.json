@@ -12,8 +12,8 @@
     "database":{
         "enabled": false,
         "databases":[
-            {"host":"", "user":"", "password":"", "db_name":"", "schedule":"","delete_after":1},
-            {"host":"", "user":"", "password":"", "db_name":"", "schedule":"","delete_after":1}
+            {"host":"", "user":"", "password":"", "db_name":"", "schedule":"","output_directory":"","delete_after":1},
+            {"host":"", "user":"", "password":"", "db_name":"", "schedule":"","output_directory":"","delete_after":1}
         ]
     }
 }

@@ -23,12 +23,13 @@ type Config struct {
 	Database struct {
 		Enabled   bool `json:"enabled"`
 		Databases []struct {
-			Host         string `json:"host"`
-			User         string `json:"user"`
-			Password     string `json:"password"`
-			DBName       string `json:"db_name"`
-			Schedule     string `json:"schedule"`
-			Delete_After int    `json:"delete_after"`
+			Host             string `json:"host"`
+			User             string `json:"user"`
+			Password         string `json:"password"`
+			DBName           string `json:"db_name"`
+			Schedule         string `json:"schedule"`
+			Output_Directory string `json:"output_directory"`
+			Delete_After     int    `json:"delete_after"`
 		} `json:"databases"`
 	} `json:"database"`
 }
@@ -38,6 +39,16 @@ type BackupConfig struct {
 	Host             string
 	API_Token        string
 	Name             string
+	Output_Directory string
+	Delete_After     int
+}
+
+type DatabaseConfig struct {
+	Host             string
+	User             string
+	Password         string
+	DBName           string
+	Schedule         string
 	Output_Directory string
 	Delete_After     int
 }
