@@ -49,9 +49,9 @@ type BackupDetail struct {
 func Backup(config config.BackupConfig) {
 	backup := getBackups(config)
 
-	backup_urls := getBackupURL(config, backup)
+	backup_urls, backup_time := getBackupURL(config, backup)
 
-	downloadBackups(backup_urls, config)
+	downloadBackups(backup_urls, backup_time, config)
 }
 
 func getBackups(config config.BackupConfig) Backups {
@@ -95,10 +95,11 @@ func getBackups(config config.BackupConfig) Backups {
 	return backups
 }
 
-func getBackupURL(config config.BackupConfig, backups Backups) []string {
+func getBackupURL(config config.BackupConfig, backups Backups) ([]string, []string) {
 
 	var data string
 	var backup_urls []string
+	var backup_time []string
 
 	client := &http.Client{}
 
@@ -137,15 +138,16 @@ func getBackupURL(config config.BackupConfig, backups Backups) []string {
 			logger.ErrorLog.Println(err)
 		}
 
+		backup_time = append(backup_time, backup.Attributes.CreatedAt.Format("02Jan2006_1504"))
 		backup_urls = append(backup_urls, backup_data.Attributes.URL)
 	}
 
-	return backup_urls
+	return backup_urls, backup_time
 }
 
-func downloadBackups(backup_urls []string, config config.BackupConfig) {
+func downloadBackups(backup_urls []string, backup_time []string, config config.BackupConfig) {
 
-	for _, backup := range backup_urls {
+	for i, backup := range backup_urls {
 		resp, err := http.Get(backup)
 
 		if err != nil {
@@ -161,7 +163,7 @@ func downloadBackups(backup_urls []string, config config.BackupConfig) {
 		}
 
 		// Create the file
-		path := filepath.Join(config.Output_Directory, config.Name+"-"+time.Now().Format("02-Jan-2006-15:04:05")+".tar.gz")
+		path := filepath.Join(config.Output_Directory, config.Name+"_"+backup_time[i]+"_"+"to"+"_"+time.Now().Format("02Jan2006_1504")+".tar.gz")
 		out, err := os.Create(path)
 
 		if err != nil {
@@ -171,6 +173,8 @@ func downloadBackups(backup_urls []string, config config.BackupConfig) {
 
 		// Write the body to file
 		_, err = io.Copy(out, resp.Body)
-		logger.ErrorLog.Println(err)
+		if err != nil {
+			logger.ErrorLog.Println(err)
+		}
 	}
 }

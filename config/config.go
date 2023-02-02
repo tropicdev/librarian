@@ -17,6 +17,7 @@ type Config struct {
 			Name            string `json:"name"`
 			OutputDirectory string `json:"output_directory"`
 			Schedule        string `json:"schedule"`
+			Delete_After    int    `json:"delete_after"`
 		} `json:"servers"`
 	} `json:"pterodactyl"`
 	Database struct {
@@ -37,6 +38,7 @@ type BackupConfig struct {
 	API_Token        string
 	Name             string
 	Output_Directory string
+	Delete_After     int
 }
 
 func LoadConfig() Config {
