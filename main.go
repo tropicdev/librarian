@@ -1,10 +1,12 @@
 package main
 
 import (
+	"fmt"
+
 	"bitecodelabs.com/librarian/backup"
 	"bitecodelabs.com/librarian/config"
 	"bitecodelabs.com/librarian/logger"
-	"github.com/robfig/cron"
+	"github.com/robfig/cron/v3"
 )
 
 func main() {
@@ -14,6 +16,8 @@ func main() {
 
 	c := cron.New()
 	for _, server := range json_config.Pterodactyl.Servers {
+		fmt.Println(json_config)
+		fmt.Println(server)
 		config := config.BackupConfig{
 			Server_Id:        server.ID,
 			Host:             json_config.Pterodactyl.Host,
@@ -21,7 +25,7 @@ func main() {
 			Name:             server.Name,
 			Output_Directory: server.OutputDirectory,
 		}
-		err := c.AddFunc(server.Schedule, func() {
+		_, err := c.AddFunc(server.Schedule, func() {
 			logger.InfoLog.Println("Getting Backup for", server.Name)
 			backup.Backup(config)
 		})
@@ -30,4 +34,6 @@ func main() {
 		}
 	}
 	c.Start()
+
+	select {}
 }
