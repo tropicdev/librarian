@@ -31,6 +31,14 @@ type Config struct {
 	} `json:"database"`
 }
 
+type BackupConfig struct {
+	Server_Id        string
+	Host             string
+	API_Token        string
+	Name             string
+	Output_Directory string
+}
+
 func LoadConfig() Config {
 	var config Config
 
@@ -38,13 +46,15 @@ func LoadConfig() Config {
 	if err != nil {
 		logger.ErrorLog.Fatalf("error reading job config file: %v", err)
 	}
-	defer file.Close()
 
 	decoder := json.NewDecoder(file)
 	err = decoder.Decode(&config)
 	if err != nil {
 		logger.ErrorLog.Fatalf("error decoding job config: %v", err)
 	}
+
+	file.Close()
+
 	return config
 
 }
