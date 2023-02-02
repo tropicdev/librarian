@@ -5,6 +5,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"path/filepath"
 	"time"
 
 	"bitecodelabs.com/librarian/config"
@@ -104,7 +105,7 @@ func getBackupURL(config config.BackupConfig, backups Backups) []string {
 	for _, backup := range backups.Data {
 		var backup_data BackupDetail
 
-		req, err := http.NewRequest("GET", config.Host+"/api/client/servers/"+config.Server_Id+"/backups"+backup.Attributes.UUID+"/download", nil)
+		req, err := http.NewRequest("GET", config.Host+"/api/client/servers/"+config.Server_Id+"/backups/"+backup.Attributes.UUID+"/download", nil)
 
 		if err != nil {
 			logger.ErrorLog.Println(err)
@@ -130,7 +131,7 @@ func getBackupURL(config config.BackupConfig, backups Backups) []string {
 			logger.ErrorLog.Println(err)
 		}
 
-		err = json.Unmarshal([]byte(data), &backup)
+		err = json.Unmarshal([]byte(data), &backup_data)
 
 		if err != nil {
 			logger.ErrorLog.Println(err)
@@ -153,8 +154,15 @@ func downloadBackups(backup_urls []string, config config.BackupConfig) {
 
 		defer resp.Body.Close()
 
+		err = os.MkdirAll(config.Output_Directory, 0700)
+
+		if err != nil {
+			logger.ErrorLog.Println(err)
+		}
+
 		// Create the file
-		out, err := os.Create(config.Output_Directory)
+		path := filepath.Join(config.Output_Directory, config.Name+"-"+time.Now().Format("02-Jan-2006-15:04:05")+".tar.gz")
+		out, err := os.Create(path)
 
 		if err != nil {
 			logger.ErrorLog.Println(err)
